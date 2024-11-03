@@ -1,0 +1,23 @@
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: weekly_shop_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: weekly_shop
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - weekly_shop_network
+
+volumes:
+  db_data:
+
+networks:
+  weekly_shop_network:
+    driver: bridge
