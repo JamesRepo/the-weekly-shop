@@ -1,0 +1,2 @@
+GET {{baseUrl}}/api/recipe/123
+Accept: application/json
