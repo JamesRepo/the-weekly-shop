@@ -1,0 +1,8 @@
+### Create a New Ingredient
+POST {{baseUrl}}/api/ingredient
+Content-Type: application/json
+
+{
+  "name": "Spinach",
+  "unitOfMeasurement": "grams"
+}

@@ -1,38 +1,38 @@
 -- V1__Initial_Setup.sql
 
-CREATE TABLE Recipe (
-    id CHAR(36) NOT NULL PRIMARY KEY,
+CREATE TABLE recipe (
+    id BINARY(16) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     instructions TEXT
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
 
-CREATE TABLE Ingredient (
-    id CHAR(36) NOT NULL PRIMARY KEY,
+CREATE TABLE ingredient (
+    id BINARY(16) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     unit_of_measurement VARCHAR(50)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
 
-CREATE TABLE RecipeIngredient (
-    id CHAR(36) NOT NULL PRIMARY KEY,
-    recipe_id CHAR(36) NOT NULL,
-    ingredient_id CHAR(36) NOT NULL,
+CREATE TABLE recipe_ingredient (
+    id BINARY(16) NOT NULL PRIMARY KEY,
+    recipe_id BINARY(16) NOT NULL,
+    ingredient_id BINARY(16) NOT NULL,
     quantity DECIMAL(10, 2),
-    FOREIGN KEY (recipe_id) REFERENCES Recipe(id) ON DELETE CASCADE,
-    FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id)
-);
+    FOREIGN KEY (recipe_id) REFERENCES recipe(id) ON DELETE CASCADE,
+    FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
 
-CREATE TABLE ShoppingList (
-    id CHAR(36) NOT NULL PRIMARY KEY,
+CREATE TABLE shopping_list (
+    id BINARY(16) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
 
-CREATE TABLE ShoppingListItem (
-    id CHAR(36) NOT NULL PRIMARY KEY,
-    shopping_list_id CHAR(36) NOT NULL,
-    ingredient_id CHAR(36) NOT NULL,
+CREATE TABLE shopping_list_item (
+    id BINARY(16) NOT NULL PRIMARY KEY,
+    shopping_list_id BINARY(16) NOT NULL,
+    ingredient_id BINARY(16) NOT NULL,
     quantity DECIMAL(10, 2),
-    FOREIGN KEY (shopping_list_id) REFERENCES ShoppingList(id) ON DELETE CASCADE,
-    FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id)
-);
+    FOREIGN KEY (shopping_list_id) REFERENCES shopping_list(id) ON DELETE CASCADE,
+    FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
