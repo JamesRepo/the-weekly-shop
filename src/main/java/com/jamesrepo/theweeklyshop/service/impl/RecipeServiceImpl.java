@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -37,11 +38,24 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public RecipeQuery put(UUID id, RecipeCommand command) {
-        return null;
+        log.info("Updating Recipe with ID: {}", id);
+        Recipe recipe = recipeMapper.toEntity(command);
+        recipe.setId(id);
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        return recipeMapper.toQuery(savedRecipe);
     }
 
     @Override
     public UUID delete(UUID id) {
-        return null;
+        log.info("Deleting Recipe with ID: {}", id);
+        return findAndDeleteRecipe(id).orElse(null);
+    }
+
+    private Optional<UUID> findAndDeleteRecipe(UUID id) {
+        return recipeRepository.findById(id)
+                .map(recipe -> {
+                    recipeRepository.delete(recipe);
+                    return id;
+                });
     }
 }

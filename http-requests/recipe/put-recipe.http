@@ -1,0 +1,23 @@
+### Update Recipe
+PUT {{baseUrl}}/api/recipe/661909eb-5212-4f99-a4a2-7d6c96ee7e7c
+Content-Type: application/json
+
+{
+  "name": "Chocolate Cake",
+  "description": "A chocolate cake I like to make.",
+  "instructions": "1. Preheat the oven.\n2. Mix ingredients.\n3. Bake for 30 minutes.",
+  "recipeIngredients": [
+    {
+      "ingredient": "0005c95f-df14-445a-ba5b-88323c71ed2b",
+      "quantity": 20
+    },
+    {
+      "ingredient": "279769cc-a6c5-4b8a-8b57-f5666e0e3b42",
+      "quantity": 300
+    },
+    {
+      "ingredient": "ad83e7b9-a276-4500-a8e8-af63f03a8024",
+      "quantity": 200
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+### Delete Recipe
+DELETE {{baseUrl}}/api/recipe/d6aa6ce8-4461-40eb-a557-542ade52e495
+Content-Type: application/json

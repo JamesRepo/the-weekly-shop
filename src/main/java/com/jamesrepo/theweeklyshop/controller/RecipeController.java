@@ -32,4 +32,21 @@ public class RecipeController {
         RecipeQuery savedRecipe = recipeService.post(recipeCommand);
         return new ResponseEntity<>(savedRecipe, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<RecipeQuery> put(
+            @PathVariable String id,
+            @RequestBody RecipeCommand recipeCommand
+    ) {
+        RecipeQuery savedRecipe = recipeService.put(UUID.fromString(id), recipeCommand);
+        return new ResponseEntity<>(savedRecipe, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UUID> delete(
+            @PathVariable String id
+    ) {
+        UUID deletedId = recipeService.delete(UUID.fromString(id));
+        return new ResponseEntity<>(deletedId, HttpStatus.OK);
+    }
 }
