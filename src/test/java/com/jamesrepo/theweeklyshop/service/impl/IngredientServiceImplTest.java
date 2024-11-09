@@ -72,17 +72,21 @@ public class IngredientServiceImplTest {
     public void testPostIngredient() {
         IngredientCommand command = new IngredientCommand();
         command.setName("Salt");
+        command.setUnitOfMeasurement("tablespoons");
 
         Ingredient ingredient = new Ingredient();
         ingredient.setName("Salt");
+        ingredient.setUnitOfMeasurement("tablespoons");
 
         Ingredient savedIngredient = new Ingredient();
         savedIngredient.setId(UUID.randomUUID());
         savedIngredient.setName("Salt");
+        savedIngredient.setUnitOfMeasurement("tablespoons");
 
         IngredientQuery ingredientQuery = new IngredientQuery();
         ingredientQuery.setId(savedIngredient.getId());
         ingredientQuery.setName("Salt");
+        ingredientQuery.setUnitOfMeasurement("tablespoons");
 
         when(ingredientMapper.toEntity(command)).thenReturn(ingredient);
         when(ingredientRepository.save(ingredient)).thenReturn(savedIngredient);
