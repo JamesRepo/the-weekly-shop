@@ -1,41 +1,35 @@
 package com.jamesrepo.theweeklyshop.controller;
 
-import com.jamesrepo.theweeklyshop.model.dto.RecipeDto;
+import com.jamesrepo.theweeklyshop.model.dto.command.RecipeCommand;
+import com.jamesrepo.theweeklyshop.model.dto.query.RecipeQuery;
+import com.jamesrepo.theweeklyshop.service.RecipeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/recipe")
 public class RecipeController {
 
+    private final RecipeService recipeService;
+
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<RecipeDto> get(
+    public ResponseEntity<RecipeQuery> get(
             @PathVariable String id
             ) {
-        return new ResponseEntity<>(new RecipeDto(), HttpStatus.OK);
+        RecipeQuery recipeQuery = recipeService.get(UUID.fromString(id));
+        return new ResponseEntity<>(recipeQuery, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<RecipeDto> post(
-            @RequestBody RecipeDto recipeDto
+    public ResponseEntity<RecipeQuery> post(
+            @RequestBody RecipeCommand recipeCommand
     ) {
-        return new ResponseEntity<>(new RecipeDto(), HttpStatus.OK);
-    }
-
-    @PutMapping
-    public ResponseEntity<RecipeDto> put(
-            @RequestBody RecipeDto recipeDto
-    ) {
-        return new ResponseEntity<>(new RecipeDto(), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{uuid}")
-    public ResponseEntity<UUID> delete(
-            @PathVariable UUID uuid
-    ) {
-        return new ResponseEntity<>(UUID.randomUUID(), HttpStatus.OK);
+        RecipeQuery savedRecipe = recipeService.post(recipeCommand);
+        return new ResponseEntity<>(savedRecipe, HttpStatus.OK);
     }
 }

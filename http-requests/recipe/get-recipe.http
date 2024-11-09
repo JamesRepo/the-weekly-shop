@@ -1,2 +1,2 @@
-GET {{baseUrl}}/api/recipe/123
+GET {{baseUrl}}/api/recipe/661909eb-5212-4f99-a4a2-7d6c96ee7e7c
 Accept: application/json
