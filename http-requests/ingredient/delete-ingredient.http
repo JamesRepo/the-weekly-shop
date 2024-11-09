@@ -1,0 +1,2 @@
+DELETE {{baseUrl}}/api/ingredient/ba37f7c0-397f-465a-b7b7-2966bff9b61e
+Content-Type: application/json

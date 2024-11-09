@@ -3,6 +3,6 @@ POST {{baseUrl}}/api/ingredient
 Content-Type: application/json
 
 {
-  "name": "Spinach",
+  "name": "Milk",
   "unitOfMeasurement": "grams"
 }

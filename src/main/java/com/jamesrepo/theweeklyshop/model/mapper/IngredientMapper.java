@@ -15,6 +15,7 @@ public class IngredientMapper {
         IngredientQuery ingredientQuery = new IngredientQuery();
         ingredientQuery.setName(ingredient.getName());
         ingredientQuery.setUnitOfMeasurement(ingredient.getUnitOfMeasurement());
+        ingredientQuery.setId(ingredient.getId());
         return ingredientQuery;
     }
 
