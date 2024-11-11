@@ -4,56 +4,80 @@ import com.jamesrepo.theweeklyshop.model.Ingredient;
 import com.jamesrepo.theweeklyshop.model.dto.command.IngredientCommand;
 import com.jamesrepo.theweeklyshop.model.dto.query.IngredientQuery;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
-@SpringBootTest
 public class IngredientMapperTest {
 
-    @Autowired
-    IngredientMapper ingredientMapper;
+    private IngredientMapper ingredientMapper;
 
-    @Test
-    public void toQuery_withNullIngredient_returnsNull() {
-        assertNull(ingredientMapper.toQuery(null));
+    @BeforeEach
+    public void setUp() {
+        ingredientMapper = new IngredientMapper();
     }
 
     @Test
-    public void toQuery_withValidIngredient_returnsEquivalentIngredientQuery() {
+    public void testToQuery_NullIngredient() {
+        IngredientQuery result = ingredientMapper.toQuery(null);
+        assertNull(result, "Result should be null when input Ingredient is null");
+    }
+
+    @Test
+    public void testToQuery_EmptyIngredient() {
         Ingredient ingredient = new Ingredient();
-        UUID randomUUID = UUID.randomUUID();
-        ingredient.setId(randomUUID);
-        ingredient.setName("Sample Ingredient");
-        ingredient.setUnitOfMeasurement("g");
+        IngredientQuery result = ingredientMapper.toQuery(ingredient);
 
-        IngredientQuery resultQuery = ingredientMapper.toQuery(ingredient);
-
-        assertNotNull(resultQuery);
-        assertEquals(ingredient.getName(), resultQuery.getName());
-        assertEquals(ingredient.getUnitOfMeasurement(), resultQuery.getUnitOfMeasurement());
-        assertEquals(ingredient.getId(), resultQuery.getId());
+        assertNotNull(result, "Result should not be null");
+        assertNull(result.getName(), "Name should be null");
+        assertNull(result.getUnitOfMeasurement(), "UnitOfMeasurement should be null");
+        assertNull(result.getId(), "ID should be null");
     }
 
     @Test
-    public void toEntity_withNullIngredientDto_returnsNull() {
-        assertNull(ingredientMapper.toEntity(null));
+    public void testToQuery_WithIngredientData() {
+        UUID ingredientId = UUID.randomUUID();
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(ingredientId);
+        ingredient.setName("Test Ingredient");
+        ingredient.setUnitOfMeasurement("grams");
+
+        IngredientQuery result = ingredientMapper.toQuery(ingredient);
+
+        assertNotNull(result, "Result should not be null");
+        assertEquals(ingredient.getName(), result.getName(), "Names should match");
+        assertEquals(ingredient.getUnitOfMeasurement(), result.getUnitOfMeasurement(), "UnitOfMeasurements should match");
+        assertEquals(ingredient.getId(), result.getId(), "IDs should match");
     }
 
     @Test
-    public void toEntity_withValidIngredientDto_returnsEquivalentIngredient() {
-        IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setName("Sample Ingredient");
-        ingredientCommand.setUnitOfMeasurement("g");
-
-        Ingredient resultIngredient = ingredientMapper.toEntity(ingredientCommand);
-
-        assertNotNull(resultIngredient);
-        assertEquals(ingredientCommand.getName(), resultIngredient.getName());
-        assertEquals(ingredientCommand.getUnitOfMeasurement(), resultIngredient.getUnitOfMeasurement());
+    public void testToEntity_NullIngredientCommand() {
+        Ingredient result = ingredientMapper.toEntity(null);
+        assertNull(result, "Result should be null when input IngredientCommand is null");
     }
 
+    @Test
+    public void testToEntity_EmptyIngredientCommand() {
+        IngredientCommand command = new IngredientCommand();
+        Ingredient result = ingredientMapper.toEntity(command);
+
+        assertNotNull(result, "Result should not be null");
+        assertNull(result.getName(), "Name should be null");
+        assertNull(result.getUnitOfMeasurement(), "UnitOfMeasurement should be null");
+    }
+
+    @Test
+    public void testToEntity_WithIngredientCommandData() {
+        IngredientCommand command = new IngredientCommand();
+        command.setName("Test Ingredient Command");
+        command.setUnitOfMeasurement("liters");
+
+        Ingredient result = ingredientMapper.toEntity(command);
+
+        assertNotNull(result, "Result should not be null");
+        assertEquals(command.getName(), result.getName(), "Names should match");
+        assertEquals(command.getUnitOfMeasurement(), result.getUnitOfMeasurement(), "UnitOfMeasurements should match");
+    }
 }
