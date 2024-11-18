@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,5 +58,10 @@ public class IngredientServiceImpl implements IngredientService {
                     ingredientRepository.delete(ingredient);
                     return id;
                 });
+    }
+
+    @Override
+    public List<IngredientQuery> getAll() {
+        return ingredientRepository.findAll().stream().map(ingredientMapper::toQuery).toList();
     }
 }

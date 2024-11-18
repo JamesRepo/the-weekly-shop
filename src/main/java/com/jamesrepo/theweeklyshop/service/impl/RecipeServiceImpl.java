@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,6 +50,11 @@ public class RecipeServiceImpl implements RecipeService {
     public UUID delete(UUID id) {
         log.info("Deleting Recipe with ID: {}", id);
         return findAndDeleteRecipe(id).orElse(null);
+    }
+
+    @Override
+    public List<RecipeQuery> getAll() {
+        return List.of();
     }
 
     private Optional<UUID> findAndDeleteRecipe(UUID id) {
